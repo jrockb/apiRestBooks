@@ -7,6 +7,8 @@ import co.com.jcd.apirestbooks.backend.response.CategoriaResponseRest;
 public interface ICategoriaService {
 	
 	public ResponseEntity<CategoriaResponseRest> buscarCategorias();
+
+	public ResponseEntity<CategoriaResponseRest> buscarCategoriasPorId(Long id);
 	
 
 }

@@ -1,7 +1,9 @@
 package co.com.jcd.apirestbooks.backend.service;
 
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +41,34 @@ public class CategoriaServiceImpl  implements ICategoriaService{
 			return new ResponseEntity<CategoriaResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR); // devuelve 500
 		}
 		return new ResponseEntity<CategoriaResponseRest>(response, HttpStatus.OK); // devuelve 200
+	}
+
+	@Override
+	@Transactional(readOnly = true) // solo lectura
+	public ResponseEntity<CategoriaResponseRest> buscarCategoriasPorId(Long id) {
+		log.info("inicio metodo buscarCategoriasPorId()");
+		CategoriaResponseRest response = new CategoriaResponseRest();
+		List<Categoria> listCategoria = new ArrayList<Categoria>();
+		try {
+			// el repositorio necesita un objeto Optional
+			Optional<Categoria> categoria = categoriaDao.findById(id);
+			if(categoria.isPresent()) { // si la búsqueda devuelve un resultado
+				listCategoria.add(categoria.get()); // obtiene el objeto de tipo categoria y lo agrega a la lista
+				response.getCategoriaResponse().setCategoria(listCategoria);
+				response.setMetadata("Respuesta ok", "00", "Respuesta exitosa");
+			} else {
+				response.setMetadata("Respuesta no ok", "-1", "Respuesta incorrecta");
+				log.error("error al consultar categoria");
+				return new ResponseEntity<CategoriaResponseRest>(response, HttpStatus.NOT_FOUND); // devuelve 404
+			
+			}
+		} catch(Exception e) {
+			response.setMetadata("Respuesta no ok", "-1", "Respuesta incorrecta");
+			log.error("error al consultar categorias: ", e.getMessage());
+			e.getStackTrace();
+			return new ResponseEntity<CategoriaResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<CategoriaResponseRest>(response, HttpStatus.OK);
 	}
 
 }
