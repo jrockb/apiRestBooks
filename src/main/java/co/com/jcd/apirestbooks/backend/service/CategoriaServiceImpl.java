@@ -35,7 +35,7 @@ public class CategoriaServiceImpl  implements ICategoriaService{
 			log.error("error al consultar categorias: ", e.getMessage());
 			e.getStackTrace();
 		}
-		return null;
+		return response;
 	}
 
 }
