@@ -1,6 +1,7 @@
 package co.com.jcd.apirestbooks.backend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,8 +17,8 @@ public class CategoriaRestController {
 	private ICategoriaService service;
 	
 	@GetMapping("/categorias") // operacion Rest con metodo GET (localhost:8080/v1/categorias)
-	public CategoriaResponseRest consultaCat() {
-		CategoriaResponseRest response = service.buscarCategorias();
+	public ResponseEntity<CategoriaResponseRest> consultaCat() { // ResponseEntity permite usar los códigos de status de HTTP
+		ResponseEntity<CategoriaResponseRest> response = service.buscarCategorias();
 		return response;		
 	}
 
