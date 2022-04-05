@@ -9,13 +9,13 @@ import co.com.jcd.apirestbooks.backend.response.CategoriaResponseRest;
 import co.com.jcd.apirestbooks.backend.service.ICategoriaService;
 
 @RestController // controlador Rest
-@RequestMapping("/v1") // url raiz
+@RequestMapping("/v1") // url raiz (localhost:8080/v1/)
 public class CategoriaRestController {
 	
 	@Autowired
 	private ICategoriaService service;
 	
-	@GetMapping("/categorias") // operacion Rest con metodo GET
+	@GetMapping("/categorias") // operacion Rest con metodo GET (localhost:8080/v1/categorias)
 	public CategoriaResponseRest consultaCat() {
 		CategoriaResponseRest response = service.buscarCategorias();
 		return response;		

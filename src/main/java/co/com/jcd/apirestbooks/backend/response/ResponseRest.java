@@ -3,6 +3,7 @@ package co.com.jcd.apirestbooks.backend.response;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+// esta clase devuelve información sobre el resultado de la operación, es general para las operaciones
 public class ResponseRest {
 	
 	private ArrayList<HashMap<String, String>> metadata = new ArrayList<>();
