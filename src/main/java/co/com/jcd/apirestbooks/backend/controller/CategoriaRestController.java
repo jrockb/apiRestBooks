@@ -4,9 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import co.com.jcd.apirestbooks.backend.model.Categoria;
 import co.com.jcd.apirestbooks.backend.response.CategoriaResponseRest;
 import co.com.jcd.apirestbooks.backend.service.ICategoriaService;
 
@@ -26,6 +29,12 @@ public class CategoriaRestController {
 	@GetMapping("/categorias/{id}") // {id} es un parámetro variable
 	public ResponseEntity<CategoriaResponseRest> consultaPorId(@PathVariable Long id){ //@PathVariable indica la variable que viene por la URI
 		ResponseEntity<CategoriaResponseRest> response = service.buscarCategoriasPorId(id);
+		return response;
+	}
+	
+	@PostMapping("/categorias")
+	public ResponseEntity<CategoriaResponseRest> crear(@RequestBody Categoria request){ // por el cueerpo de la petición vendra un objeto de tipo Categoria
+		ResponseEntity<CategoriaResponseRest> response = service.crear(request);
 		return response;
 	}
 	
